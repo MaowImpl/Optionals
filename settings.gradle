@@ -1,0 +1,4 @@
+rootProject.name = 'optionals'
+include 'optionals-annotations'
+include 'test'
+

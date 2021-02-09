@@ -1,0 +1,5 @@
+dependencies {
+    compile project(":optionals-annotations")
+    compile project(":")
+    annotationProcessor project(":")
+}
