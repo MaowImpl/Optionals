@@ -67,13 +67,13 @@ My string.
   <dependency>
     <groupId>com.github.maowimpl.optionals</groupId>
     <artifactId>optionals-annotations</artifactId>
-    <version>1.0.0-beta</version>
+    <version>version</version>
   </dependency>
 
   <dependency>
     <groupId>com.github.maowimpl.optionals</groupId>
     <artifactId>optionals</artifactId>
-    <version>1.0.0-beta</version>
+    <version>version</version>
     <scope>provided</scope>
   </dependency>
 ```
