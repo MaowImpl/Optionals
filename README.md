@@ -77,6 +77,7 @@ My string.
     <scope>provided</scope>
   </dependency>
 ```
+*View the version tracker above for the latest release.*
 
 ## Notes
 
