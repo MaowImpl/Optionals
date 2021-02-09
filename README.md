@@ -16,6 +16,7 @@ Two major benefits of Optionals are:
 ## Usage
 
 As stated previously, Optionals is very plug-and-play. By adding it to your dependencies and adding the annotation to a method's parameters, you can get started in no time.<br>
+
 **Example:**
 * Source:
 ```java
