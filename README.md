@@ -52,6 +52,32 @@ My string.
 ```
 *View the version tracker above for the latest release.*
 
+## Installation (Maven)
+1. Add JitPack to your POM's repositories field.
+```xml
+  <repositories>
+    <repository>
+      <id>jitpack.io</id>
+      <url>https://jitpack.io</url>
+    </repository>
+  </repositories>
+```
+2. Add the project to your POM's dependencies field.
+```xml
+  <dependency>
+    <groupId>com.github.maowimpl.optionals</groupId>
+    <artifactId>optionals-annotations</artifactId>
+    <version>1.0.0-beta</version>
+  </dependency>
+
+  <dependency>
+    <groupId>com.github.maowimpl.optionals</groupId>
+    <artifactId>optionals</artifactId>
+    <version>1.0.0-beta</version>
+    <scope>provided</scope>
+  </dependency>
+```
+
 ## Notes
 
 1. This project currently has no IDE support, meaning your text editor will give you errors, sadly.
