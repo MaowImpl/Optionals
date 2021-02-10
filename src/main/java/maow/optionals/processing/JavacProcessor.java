@@ -26,6 +26,9 @@ import java.util.function.Consumer;
 /**
  * A base class for all annotation processors, allows the creation of {@link JavacHandler} by providing instances of {@link TreeMaker} and other internal Javac tools.<br>
  * This class should not be instantiated, but instead inherited.
+ *
+ * @since 1.0.0
+ * @author Maow
  */
 public abstract class JavacProcessor extends AbstractProcessor {
     protected Elements elements;
@@ -33,8 +36,18 @@ public abstract class JavacProcessor extends AbstractProcessor {
     protected TreeMaker maker;
     protected Names names;
 
+    /**
+     * Helps filter which kinds of elements are able to be used by this processor.
+     *
+     * @return An array of {@link ElementKind}s
+     */
     protected abstract ElementKind[] getSupportedElementKinds();
 
+    /**
+     * The {@link JavacHandler} associated with this processor, created when the processor calls {@link JavacProcessor#handle(Element)}.
+     *
+     * @return An instance of {@link BiFunction} that creates a JavacHandler using an instance of {@link JavacUtils} and {@link TreeMaker}
+     */
     protected abstract BiFunction<JavacUtils, TreeMaker, JavacHandler> handler();
 
     @Override
@@ -62,6 +75,11 @@ public abstract class JavacProcessor extends AbstractProcessor {
         ).contains(element.getKind());
     }
 
+    /**
+     * Creates a new instance of {@link JavacHandler} and makes it visit a {@link JCTree}.
+     *
+     * @param clazz An Element that is the target class of this processor
+     */
     protected void handle(Element clazz) {
         final JCTree tree = (JCTree) trees.getTree(clazz);
         final JavacUtils utils = JavacUtils.newUtils(this);

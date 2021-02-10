@@ -1,7 +1,6 @@
 package maow.optionals.javac.util;
 
 import com.sun.tools.javac.code.Symbol.TypeSymbol;
-import com.sun.tools.javac.code.Type;
 import com.sun.tools.javac.code.TypeTag;
 import com.sun.tools.javac.tree.JCTree;
 import com.sun.tools.javac.tree.TreeMaker;
@@ -15,6 +14,9 @@ import static maow.optionals.util.Annotations.OPTIONAL_ANNOTATION;
 
 /**
  * Utility class for handlers to use, can only be instantiated with an instance of a {@link JavacProcessor}.
+ *
+ * @since 1.0.0
+ * @author Maow
  */
 public final class JavacUtils {
     private final TreeMaker maker;

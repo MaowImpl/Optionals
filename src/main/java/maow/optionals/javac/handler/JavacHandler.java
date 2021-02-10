@@ -7,6 +7,9 @@ import maow.optionals.javac.util.JavacUtils;
 /**
  * A base class for all Javac handlers, provides an instance of {@link JavacUtils} and {@link TreeMaker} for modifying the AST.<br>
  * This class should not be instantiated, but instead inherited.
+ *
+ * @since 1.0.0
+ * @author Maow
  */
 public abstract class JavacHandler extends TreeTranslator {
     protected final JavacUtils utils;

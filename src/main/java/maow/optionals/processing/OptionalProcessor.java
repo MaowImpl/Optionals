@@ -20,6 +20,9 @@ import static maow.optionals.util.Annotations.OPTIONAL_ANNOTATION;
 
 /**
  * Annotation processor for the {@link maow.optionals.annotations.Optional} annotation.
+ *
+ * @since 1.0.0
+ * @author Maow
  */
 @SupportedAnnotationTypes({ OPTIONAL_ANNOTATION })
 public final class OptionalProcessor extends JavacProcessor {
