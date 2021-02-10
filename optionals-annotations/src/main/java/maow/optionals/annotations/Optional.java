@@ -19,6 +19,7 @@ import java.lang.annotation.*;
 @Documented
 public @interface Optional {
     Class<?> classValue() default Void.class;
+    char charValue() default ' ';
     String stringValue() default "";
     byte byteValue() default 0;
     short shortValue() default 0;

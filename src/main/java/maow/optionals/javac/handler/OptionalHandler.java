@@ -1,6 +1,7 @@
 package maow.optionals.javac.handler;
 
 import com.sun.tools.javac.code.Type;
+import com.sun.tools.javac.code.TypeTag;
 import com.sun.tools.javac.tree.TreeMaker;
 import com.sun.tools.javac.util.List;
 import maow.optionals.javac.util.JavacUtils;
@@ -90,7 +91,7 @@ public final class OptionalHandler extends JavacHandler {
         for (JCVariableDecl param : params) {
             if (isOptional(param) && totalSkipped != skip) {
                 totalSkipped += 1;
-                args = args.append(getDefaultValue(param));
+                args = args.appendList(getDefaultValue(param));
                 continue;
             }
             final JCExpression paramExpr = maker.Ident(param);
@@ -116,7 +117,7 @@ public final class OptionalHandler extends JavacHandler {
         );
     }
 
-    private JCExpression getDefaultValue(JCVariableDecl param) {
+    private List<JCExpression> getDefaultValue(JCVariableDecl param) {
         for (JCAnnotation annotation : param.mods.annotations) {
             if (annotation.type.toString().equals(OPTIONAL_ANNOTATION)) {
                 final List<JCExpression> args = annotation.args;
@@ -126,20 +127,18 @@ public final class OptionalHandler extends JavacHandler {
                         final JCAssign assign = (JCAssign) arg;
                         final JCExpression rhs = assign.rhs;
                         if (!(rhs instanceof JCNewArray)) {
-                            return rhs;
+                            return List.of(rhs);
                         }
                     }
                 }
             }
         }
-        return getDefaultValue(param.vartype.type);
+        final Type type = param.vartype.type;
+        return List.of(getDefaultValue(type));
     }
 
     private JCExpression getDefaultValue(Type type) {
         final TypeKind kind = type.getKind();
-        if (kind == TypeKind.CHAR) {
-            throw new UnsupportedOperationException("@Optional cannot be used on char.");
-        }
         switch (kind) {
             case INT:
             case LONG:
@@ -149,7 +148,9 @@ public final class OptionalHandler extends JavacHandler {
             case BOOLEAN: return maker.Literal(false);
             case BYTE: return maker.Literal((byte) 0x0);
             case SHORT: return maker.Literal((short) 0);
+            case CHAR: return maker.Literal(TypeTag.CHAR, 0);
+            default:
+                return utils._null();
         }
-        return utils._null();
     }
 }

@@ -2,16 +2,27 @@ package maow.optionals.test;
 
 import maow.optionals.annotations.Optional;
 
-@SuppressWarnings("FieldCanBeLocal")
 public final class Test {
-    private final String s;
-    private final String s2;
-    private final String s3;
+    public final String s;
+    public final String s2;
+    public final String s3;
 
     public Test(String s, @Optional String s2, @Optional String s3) {
         this.s = s;
         this.s2 = s2;
         this.s3 = s3;
+    }
+
+    public static void main(String[] args) {
+        final Test test = new Test("Meme School");
+
+        System.out.println(test.s);
+        System.out.println(test.s2);
+        System.out.println(test.s3);
+
+        test.methodTest("loohcS emeM");
+        staticTest("Static School");
+        test.oneTest();
     }
 
     public void methodTest(String s, @Optional String s2) {
@@ -30,6 +41,7 @@ public final class Test {
 
     public void defaultTest(
             @Optional(classValue = String.class) Class<String> c,
+            @Optional(charValue = 'e') char ch,
             @Optional(stringValue = "Meme.") String s,
             @Optional(byteValue = (byte) 1) byte by,
             @Optional(shortValue = (short) 1) short sh,
@@ -39,4 +51,8 @@ public final class Test {
             @Optional(doubleValue = 1) double d,
             @Optional(booleanValue = true) boolean b
     ) {}
+
+    public void charTest(@Optional char c) {
+        System.out.println(c);
+    }
 }
