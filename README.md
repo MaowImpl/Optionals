@@ -1,4 +1,4 @@
-![Optionals - Optional Parameters on the Java Platform](https://i.imgur.com/sRcImT8.png)
+![Optionals - Optional Parameters on the Java Platform](https://i.imgur.com/fz8ZopG.png)
 <br>
 ![License](https://img.shields.io/github/license/maowimpl/optionals?style=flat-square)
 ![Latest Release](https://img.shields.io/github/v/release/maowimpl/optionals?style=flat-square)
