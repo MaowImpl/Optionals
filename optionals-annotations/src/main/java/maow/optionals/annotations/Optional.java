@@ -4,8 +4,11 @@ import java.lang.annotation.*;
 
 /**
  * An annotation that declares that a method/constructor's parameter is optional and may be omitted in a call.<br>
- * Multiple parameters may be annotated with this annotation, and in any order. Works the same way with static methods.<br><br>
- *
+ * Multiple parameters may be annotated with this annotation, and in any order. Works the same way with static methods.<br>
+ * <br>
+ * Has a set of value attributes for declaring default values, only the first one set will be used, the rest will be ignored.<br>
+ * The set attribute must be of the same type as the parameter being annotated.<br>
+ * <br>
  * During processing, this annotation is read and the method is overloaded with the optional parameter omitted.
  *
  * @since 1.0.0
