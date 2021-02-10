@@ -17,6 +17,7 @@ import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.util.Elements;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Set;
 import java.util.function.BiFunction;
@@ -28,7 +29,7 @@ public abstract class JavacProcessor extends AbstractProcessor {
     protected TreeMaker maker;
     protected Names names;
 
-    protected abstract ElementKind getSupportedElementKind();
+    protected abstract ElementKind[] getSupportedElementKinds();
 
     protected abstract BiFunction<JavacUtils, TreeMaker, JavacHandler> handler();
 
@@ -52,7 +53,9 @@ public abstract class JavacProcessor extends AbstractProcessor {
     }
 
     private boolean validElementKind(Element element) {
-        return element.getKind() == getSupportedElementKind();
+        return Arrays.asList(
+                getSupportedElementKinds()
+        ).contains(element.getKind());
     }
 
     protected void handle(Element clazz) {

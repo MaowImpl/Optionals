@@ -58,8 +58,10 @@ public final class OptionalProcessor extends JavacProcessor {
     }
 
     @Override
-    protected ElementKind getSupportedElementKind() {
-        return ElementKind.PARAMETER;
+    protected ElementKind[] getSupportedElementKinds() {
+        return new ElementKind[]{
+                ElementKind.PARAMETER
+        };
     }
 
     @Override

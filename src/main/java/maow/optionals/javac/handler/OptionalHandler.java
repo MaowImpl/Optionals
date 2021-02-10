@@ -1,11 +1,16 @@
 package maow.optionals.javac.handler;
 
+import com.sun.tools.javac.code.Type;
+import com.sun.tools.javac.code.TypeTag;
 import com.sun.tools.javac.tree.TreeMaker;
 import com.sun.tools.javac.util.List;
 import maow.optionals.javac.util.JavacUtils;
 
+import javax.lang.model.type.TypeKind;
+
 import static com.sun.tools.javac.tree.JCTree.*;
 import static maow.optionals.javac.util.JavacUtils.isOptional;
+import static maow.optionals.util.Annotations.OPTIONAL_ANNOTATION;
 
 public final class OptionalHandler extends JavacHandler {
     public OptionalHandler(JavacUtils utils, TreeMaker maker) {
@@ -80,7 +85,7 @@ public final class OptionalHandler extends JavacHandler {
         for (JCVariableDecl param : params) {
             if (isOptional(param) && totalSkipped != skip) {
                 totalSkipped += 1;
-                args = args.append(utils._null());
+                args = args.append(getDefaultValue(param));
                 continue;
             }
             final JCExpression paramExpr = maker.Ident(param);
@@ -104,5 +109,42 @@ public final class OptionalHandler extends JavacHandler {
                 body,
                 null
         );
+    }
+
+    private JCExpression getDefaultValue(JCVariableDecl param) {
+        for (JCAnnotation annotation : param.mods.annotations) {
+            if (annotation.type.toString().equals(OPTIONAL_ANNOTATION)) {
+                final List<JCExpression> args = annotation.args;
+                if (args.size() > 0) {
+                    final JCExpression arg = args.get(0);
+                    if (arg instanceof JCAssign) {
+                        final JCAssign assign = (JCAssign) arg;
+                        final JCExpression rhs = assign.rhs;
+                        if (!(rhs instanceof JCNewArray)) {
+                            return rhs;
+                        }
+                    }
+                }
+            }
+        }
+        return getDefaultValue(param.vartype.type);
+    }
+
+    private JCExpression getDefaultValue(Type type) {
+        final TypeKind kind = type.getKind();
+        if (kind == TypeKind.CHAR) {
+            throw new UnsupportedOperationException("@Optional cannot be used on char.");
+        }
+        switch (kind) {
+            case INT:
+            case LONG:
+            case FLOAT:
+            case DOUBLE:
+                return maker.Literal(0);
+            case BOOLEAN: return maker.Literal(false);
+            case BYTE: return maker.Literal((byte) 0x0);
+            case SHORT: return maker.Literal((short) 0);
+        }
+        return utils._null();
     }
 }
