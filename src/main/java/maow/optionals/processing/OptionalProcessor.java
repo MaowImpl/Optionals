@@ -18,6 +18,9 @@ import java.util.function.BiFunction;
 
 import static maow.optionals.util.Annotations.OPTIONAL_ANNOTATION;
 
+/**
+ * Annotation processor for the {@link maow.optionals.annotations.Optional} annotation.
+ */
 @SupportedAnnotationTypes({ OPTIONAL_ANNOTATION })
 public final class OptionalProcessor extends JavacProcessor {
     private final Set<String> processed = new HashSet<>();

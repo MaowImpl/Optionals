@@ -13,6 +13,9 @@ import maow.optionals.processing.JavacProcessor;
 import static com.sun.tools.javac.tree.JCTree.*;
 import static maow.optionals.util.Annotations.OPTIONAL_ANNOTATION;
 
+/**
+ * Utility class for handlers to use, can only be instantiated with an instance of a {@link JavacProcessor}.
+ */
 public final class JavacUtils {
     private final TreeMaker maker;
     private final Names names;

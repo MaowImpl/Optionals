@@ -1,7 +1,6 @@
 package maow.optionals.javac.handler;
 
 import com.sun.tools.javac.code.Type;
-import com.sun.tools.javac.code.TypeTag;
 import com.sun.tools.javac.tree.TreeMaker;
 import com.sun.tools.javac.util.List;
 import maow.optionals.javac.util.JavacUtils;
@@ -12,6 +11,9 @@ import static com.sun.tools.javac.tree.JCTree.*;
 import static maow.optionals.javac.util.JavacUtils.isOptional;
 import static maow.optionals.util.Annotations.OPTIONAL_ANNOTATION;
 
+/**
+ * Javac handler for {@link maow.optionals.processing.OptionalProcessor}, generates method overloads when it finds parameters annotated with {@link maow.optionals.annotations.Optional}.
+ */
 public final class OptionalHandler extends JavacHandler {
     public OptionalHandler(JavacUtils utils, TreeMaker maker) {
         super(utils, maker);

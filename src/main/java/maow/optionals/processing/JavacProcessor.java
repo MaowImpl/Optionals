@@ -23,6 +23,10 @@ import java.util.Set;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
 
+/**
+ * A base class for all annotation processors, allows the creation of {@link JavacHandler} by providing instances of {@link TreeMaker} and other internal Javac tools.<br>
+ * This class should not be instantiated, but instead inherited.
+ */
 public abstract class JavacProcessor extends AbstractProcessor {
     protected Elements elements;
     protected Trees trees;
