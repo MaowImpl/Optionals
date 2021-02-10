@@ -7,7 +7,7 @@
 
 # Overview
 
-Optionals is a library that adds powerful annotations that allow you to add optional parameters to your Java project.<br>
+**Optionals** is a library that adds powerful annotations that allow you to add optional parameters to your Java project.<br>
 It was inspired by [Project Lombok](https://projectlombok.org/), and uses a similar annotation processor system to generate method overloads automatically, reducing boilerplate.<br>
 Two major benefits of Optionals are:
 * The compiled result has no dependency on Optionals, as the annotations and processor are only needed during compile-time.
