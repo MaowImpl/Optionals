@@ -13,6 +13,9 @@ import static maow.optionals.util.Annotations.OPTIONAL_ANNOTATION;
 
 /**
  * Javac handler for {@link maow.optionals.processing.OptionalProcessor}, generates method overloads when it finds parameters annotated with {@link maow.optionals.annotations.Optional}.
+ *
+ * @since 1.0.0
+ * @author Maow
  */
 public final class OptionalHandler extends JavacHandler {
     public OptionalHandler(JavacUtils utils, TreeMaker maker) {
