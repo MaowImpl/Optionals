@@ -2,7 +2,6 @@ package maow.optionals.javac.handler;
 
 import com.sun.tools.javac.tree.TreeMaker;
 import com.sun.tools.javac.util.List;
-import com.sun.tools.javac.util.Name;
 import maow.optionals.javac.util.JavacUtils;
 
 import static com.sun.tools.javac.tree.JCTree.*;
@@ -29,21 +28,23 @@ public final class OptionalHandler extends JavacHandler {
     }
 
     private void handleMethod(JCMethodDecl method) {
+        final String name = method.name.toString();
+        final boolean isCtor = name.equals("<init>");
         final List<JCVariableDecl> params = method.params;
-        handleParameters(method, params);
+        handleParameters(method, params, isCtor);
     }
 
-    private void handleParameters(JCMethodDecl method, List<JCVariableDecl> params) {
+    private void handleParameters(JCMethodDecl method, List<JCVariableDecl> params, boolean isCtor) {
         if (params.stream().noneMatch(JavacUtils::isOptional)) {
             return;
         }
-        getOverloadMethods(method, params)
+        getOverloadMethods(method, params, isCtor)
                 .forEach(overload ->
                         clazz.defs = clazz.defs.append(overload)
                 );
     }
 
-    private List<JCMethodDecl> getOverloadMethods(JCMethodDecl method, List<JCVariableDecl> params) {
+    private List<JCMethodDecl> getOverloadMethods(JCMethodDecl method, List<JCVariableDecl> params, boolean isCtor) {
         List<JCMethodDecl> overloads = List.nil();
         final int optional = (int) params
                 .stream()
@@ -51,7 +52,7 @@ public final class OptionalHandler extends JavacHandler {
                 .count();
         for (int i = 1; i <= optional; i++) {
             final List<JCVariableDecl> overloadParams = getOverloadParameters(params, i);
-            final JCBlock overloadBody = getOverloadBody(method.name, params, i);
+            final JCBlock overloadBody = getOverloadBody(method, params, i, isCtor);
             final JCMethodDecl overloadMethod = getOverloadMethod(method, overloadBody, overloadParams);
             overloads = overloads.append(overloadMethod);
         }
@@ -72,7 +73,7 @@ public final class OptionalHandler extends JavacHandler {
         return overloadParams.reverse();
     }
 
-    private JCBlock getOverloadBody(Name name, List<JCVariableDecl> params, int skip) {
+    private JCBlock getOverloadBody(JCMethodDecl method, List<JCVariableDecl> params, int skip, boolean isCtor) {
         params = params.reverse();
         List<JCExpression> args = List.nil();
         int totalSkipped = 0;
@@ -85,7 +86,10 @@ public final class OptionalHandler extends JavacHandler {
             final JCExpression paramExpr = maker.Ident(param);
             args = args.append(paramExpr);
         }
-        JCStatement call = utils.call(name, args.reverse());
+        args = args.reverse();
+        final JCStatement call = (!isCtor)
+                ? utils.call(method.name, args)
+                : utils._this(clazz, args);
         return utils.block(call);
     }
 

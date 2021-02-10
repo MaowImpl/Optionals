@@ -1,6 +1,7 @@
 package maow.optionals.javac.util;
 
 import com.sun.tools.javac.code.Symbol.TypeSymbol;
+import com.sun.tools.javac.code.Type;
 import com.sun.tools.javac.code.TypeTag;
 import com.sun.tools.javac.tree.JCTree;
 import com.sun.tools.javac.tree.TreeMaker;
@@ -65,16 +66,14 @@ public final class JavacUtils {
         return maker.Exec(expr);
     }
 
-    public JCStatement call(String call) {
-        return call(call, List.nil());
-    }
-
     public JCStatement call(Name name, List<JCExpression> args) {
         return call(name.toString(), args);
     }
 
-    public JCStatement call(Name name) {
-        return call(name.toString());
+    public JCStatement _this(JCClassDecl clazz, List<JCExpression> args) {
+        JCExpression expr = maker.This(clazz.sym.type);
+        expr = maker.Apply(List.nil(), expr, args);
+        return maker.Exec(expr);
     }
 
     public JCExpression id(String name) {
@@ -82,10 +81,6 @@ public final class JavacUtils {
         return (sections.length == 0)
                 ? maker.Ident(name(name))
                 : chainedId(sections);
-    }
-
-    public JCExpression id(Name name) {
-        return id(name.toString());
     }
 
     private JCExpression chainedId(String... sections) {
