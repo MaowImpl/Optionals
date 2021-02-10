@@ -1,6 +1,5 @@
 package maow.optionals.javac.util;
 
-import com.sun.tools.javac.code.Flags;
 import com.sun.tools.javac.code.Symbol.TypeSymbol;
 import com.sun.tools.javac.code.TypeTag;
 import com.sun.tools.javac.tree.JCTree;
@@ -8,17 +7,24 @@ import com.sun.tools.javac.tree.TreeMaker;
 import com.sun.tools.javac.util.List;
 import com.sun.tools.javac.util.Name;
 import com.sun.tools.javac.util.Names;
+import maow.optionals.processing.JavacProcessor;
 
 import static com.sun.tools.javac.tree.JCTree.*;
-import static maow.optionals.javac.util.Annotations.OPTIONAL_ANNOTATION;
+import static maow.optionals.util.Annotations.OPTIONAL_ANNOTATION;
 
 public final class JavacUtils {
     private final TreeMaker maker;
     private final Names names;
 
-    public JavacUtils(TreeMaker maker, Names names) {
+    private JavacUtils(TreeMaker maker, Names names) {
         this.maker = maker;
         this.names = names;
+    }
+
+    public static JavacUtils newUtils(JavacProcessor processor) {
+        final TreeMaker maker = processor.getMaker();
+        final Names names = processor.getNames();
+        return new JavacUtils(maker, names);
     }
 
     public static boolean isMethod(JCTree tree) {

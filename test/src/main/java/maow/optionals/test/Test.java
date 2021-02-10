@@ -8,8 +8,9 @@ public final class Test {
         test.test("Meme");
     }
 
-    public void test(String s, @Optional String s2) {
+    public void test(String s, @Optional String s2, @Optional String s3) {
         System.out.println(s);
         System.out.println(s2);
+        System.out.println(s3);
     }
 }
