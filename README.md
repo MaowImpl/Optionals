@@ -36,6 +36,10 @@ null
 My string.
 ```
 
+## IDE Plugins
+
+* [IntelliJ IDEA](https://github.com/MaowImpl/optionals-intellij-plugin)
+
 ## Installation (Gradle)
 
 1. Add JitPack to your buildscript's repositories.
