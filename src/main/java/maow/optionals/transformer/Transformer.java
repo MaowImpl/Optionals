@@ -1,5 +1,6 @@
 package maow.optionals.transformer;
 
+import com.sun.tools.javac.code.Type;
 import com.sun.tools.javac.code.TypeTag;
 import com.sun.tools.javac.tree.JCTree;
 import com.sun.tools.javac.tree.JCTree.*;
@@ -54,11 +55,13 @@ public abstract class Transformer<T extends JCTree> {
         return id;
     }
 
-    protected JCStatement call(String name, List<JCExpression> parameters) {
+    protected JCStatement call(String name, List<JCExpression> parameters, boolean hasReturn) {
         JCExpression call = id(name);
         if (!parameters.isEmpty())
             call = maker.Apply(List.nil(), call, parameters);
-        return maker.Exec(call);
+        return (!hasReturn)
+                ? maker.Exec(call)
+                : maker.Return(call);
     }
 
     protected JCStatement constructorCall(JCClassDecl clazz, List<JCExpression> parameters) {

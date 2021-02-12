@@ -36,7 +36,7 @@ public class OptionalTransformer extends Transformer<JCMethodDecl> {
         for (int i = 1; i <= optional; i++) {
             final List<JCVariableDecl> originals = base.params.reverse();
             final List<JCVariableDecl> parameters = getParameters(originals, i);
-            final JCBlock body = getBody(base.name, originals, i);
+            final JCBlock body = getBody(base, originals, i);
             final JCMethodDecl method = getMethod(base, parameters, body);
             methods = methods.append(method);
         }
@@ -57,7 +57,7 @@ public class OptionalTransformer extends Transformer<JCMethodDecl> {
         return parameters.reverse();
     }
 
-    private JCBlock getBody(Name name, List<JCVariableDecl> originals, int skip) {
+    private JCBlock getBody(JCMethodDecl method, List<JCVariableDecl> originals, int skip) {
         int skipped = 0;
         List<JCExpression> parameters = List.nil();
         for (JCVariableDecl original : originals) {
@@ -72,8 +72,9 @@ public class OptionalTransformer extends Transformer<JCMethodDecl> {
             parameters = parameters.append(id);
         }
         parameters = parameters.reverse();
-        final JCStatement call = (!ctor)
-                ? call(name.toString(), parameters)
+        final boolean hasReturn = !method.restype.type.toString().equals("void");
+        JCStatement call = (!ctor)
+                ? call(method.name.toString(), parameters, hasReturn)
                 : constructorCall(clazz, parameters);
         return block(call);
     }
@@ -115,12 +116,11 @@ public class OptionalTransformer extends Transformer<JCMethodDecl> {
                 }
             }
         }
-        final Type type = parameter.vartype.type;
-        return getDefaultValue(type);
+        return getDefaultValue(parameter.vartype);
     }
 
-    private JCExpression getDefaultValue(Type type) {
-        final TypeKind kind = type.getKind();
+    private JCExpression getDefaultValue(JCExpression varType) {
+        final TypeKind kind = varType.type.getKind();
         switch (kind) {
             case INT:
             case LONG:
@@ -131,6 +131,11 @@ public class OptionalTransformer extends Transformer<JCMethodDecl> {
             case BYTE: return lit((byte) 0);
             case SHORT: return lit((short) 0);
             case CHAR: return lit(TypeTag.CHAR, 0);
+            case DECLARED: {
+                if (varType.toString().equals("String")) {
+                    return lit("");
+                }
+            }
             default:
                 return nullLit();
         }
