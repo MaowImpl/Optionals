@@ -23,6 +23,14 @@ import java.util.function.BiFunction;
 
 import static maow.optionals.util.CollectionUtil.toSet;
 
+/**
+ * Default annotation processor that provides instances of AST modification and traversal tools.<br>
+ * Contains abstract subclasses for filtering specific processor elements and other element-kind-specific logic.
+ *
+ * @since 1.0.0
+ * @author Maow
+ * @see javax.annotation.processing.AbstractProcessor
+ */
 public abstract class JavacProcessor extends AbstractProcessor {
     private final String supportedAnnotation;
 
@@ -67,11 +75,22 @@ public abstract class JavacProcessor extends AbstractProcessor {
         return isAnnotationClaimed();
     }
 
+    /**
+     * Called after the class element has been accessed, decides whether or not a class element is valid for processing.
+     *
+     * @param element The class element
+     * @return Whether or not this element is valid
+     */
     @NoImplementation
     protected boolean validate(Element element) {
         return true;
     }
 
+    /**
+     * Called after a processor successfully processes a class element.
+     *
+     * @param element The class element
+     */
     @NoImplementation
     protected void processed(Element element) {}
 
@@ -99,6 +118,11 @@ public abstract class JavacProcessor extends AbstractProcessor {
         return null;
     }
 
+    /**
+     * The filter this processor instantiates during processing.
+     *
+     * @return A method reference to a filter's constructor
+     */
     protected abstract BiFunction<TreeMaker, Names, Filter> getFilter();
 
     public abstract Set<ElementKind> getSupportedElementKinds();

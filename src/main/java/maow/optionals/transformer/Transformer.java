@@ -9,6 +9,13 @@ import com.sun.tools.javac.util.Name;
 import com.sun.tools.javac.util.Names;
 import maow.optionals.filter.Filter;
 
+/**
+ * Handles modification of the source AST, is instantiated by a {@link Filter}.
+ * @param <T> The type this transformer can transform
+ *
+ * @since 1.0.0
+ * @author Maow
+ */
 public abstract class Transformer<T extends JCTree> {
     protected final Filter filter;
     protected final TreeMaker maker;
@@ -38,7 +45,7 @@ public abstract class Transformer<T extends JCTree> {
                 : chainedId(sections);
     }
 
-    protected JCExpression chainedId(String... sections) {
+    private JCExpression chainedId(String... sections) {
         JCExpression id = null;
         for (String section : sections) {
             if (id == null) id = maker.Ident(name(section));

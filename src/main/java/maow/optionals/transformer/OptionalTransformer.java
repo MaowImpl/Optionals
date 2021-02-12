@@ -5,7 +5,7 @@ import com.sun.tools.javac.code.TypeTag;
 import com.sun.tools.javac.tree.JCTree.*;
 import com.sun.tools.javac.util.List;
 import com.sun.tools.javac.util.Name;
-import maow.optionals.exception.IncorrectAttributesException;
+import maow.optionals.exception.TooManyAttributesException;
 import maow.optionals.filter.Filter;
 
 import javax.lang.model.type.TypeKind;
@@ -112,7 +112,7 @@ public class OptionalTransformer extends Transformer<JCMethodDecl> {
                         return rhs;
                     }
                  } else if (attributes.size() > 1) {
-                    throw new IncorrectAttributesException("@Optional annotation should not have more than one attribute.");
+                    throw new TooManyAttributesException("@Optional annotation should not have more than one attribute.");
                 }
             }
         }

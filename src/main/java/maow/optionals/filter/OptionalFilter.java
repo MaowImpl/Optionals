@@ -1,6 +1,5 @@
 package maow.optionals.filter;
 
-import com.sun.tools.javac.tree.JCTree;
 import com.sun.tools.javac.tree.JCTree.*;
 import com.sun.tools.javac.tree.TreeMaker;
 import com.sun.tools.javac.util.Name;
@@ -14,20 +13,11 @@ public class OptionalFilter extends Filter {
     }
 
     @Override
-    public void visitClassDef(JCClassDecl clazz) {
-        super.visitClassDef(clazz);
-
+    protected void accept(JCClassDecl clazz) {
         final OptionalTransformer transformer = new OptionalTransformer(this, clazz);
         getMethods(clazz)
                 .filter(this::hasOptionalParameter)
                 .forEach(transformer::transform);
-
-        result = clazz;
-    }
-
-    @Override
-    public boolean validate(JCTree tree) {
-        return true;
     }
 
     @Override
