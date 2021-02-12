@@ -10,6 +10,8 @@ import maow.optionals.filter.Filter;
 
 import javax.lang.model.type.TypeKind;
 
+import java.util.Arrays;
+
 import static maow.optionals.util.Constants.Annotations.OPTIONAL;
 
 public class OptionalTransformer extends Transformer<JCMethodDecl> {
@@ -110,6 +112,8 @@ public class OptionalTransformer extends Transformer<JCMethodDecl> {
                     final JCExpression rhs = assign.rhs;
                     if (!(rhs instanceof JCNewArray)) {
                         return rhs;
+                    } else {
+                        return getArrayValue(rhs);
                     }
                 } else if (attributes.size() > 1) {
                     throw new TooManyAttributesException();
@@ -117,6 +121,16 @@ public class OptionalTransformer extends Transformer<JCMethodDecl> {
             }
         }
         return getDefaultValue(parameter.vartype);
+    }
+
+    private JCExpression getArrayValue(JCExpression expr) {
+        final JCNewArray array = (JCNewArray) expr;
+        if (array.elems.size() > 0) {
+            final JCExpression elem = array.elems.get(0);
+            final JCExpression type = maker.Type(elem.type);
+            return maker.NewArray(type, array.dims, array.elems);
+        }
+        return nullLit();
     }
 
     private JCExpression getDefaultValue(JCExpression varType) {

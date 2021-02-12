@@ -37,7 +37,10 @@ public final class Test {
             @Optional(longValue = 1) long l,
             @Optional(floatValue = 1) float f,
             @Optional(doubleValue = 1) double d,
-            @Optional(booleanValue = true) boolean b
+            @Optional(booleanValue = true) boolean b,
+
+            @Optional(charsValue = {'a', 'b'}) char[] cs,
+            @Optional(stringsValue = {"eee", "eee2"}) String[] ss
     ) {}
 
     public void charTest(@Optional char c) {

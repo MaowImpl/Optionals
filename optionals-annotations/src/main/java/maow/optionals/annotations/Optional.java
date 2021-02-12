@@ -28,4 +28,14 @@ public @interface Optional {
     float floatValue() default 0;
     double doubleValue() default 0;
     boolean booleanValue() default false;
+
+    char[] charsValue() default {};
+    String[] stringsValue() default {};
+    byte[] bytesValue() default {};
+    short[] shortsValue() default {};
+    int[] intsValue() default {};
+    long[] longsValue() default {};
+    float[] floatsValue() default {};
+    double[] doublesValue() default {};
+    boolean[] booleansValue() default {};
 }
