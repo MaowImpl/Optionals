@@ -24,7 +24,6 @@ public class OptionalTransformer extends Transformer<JCMethodDecl> {
     @Override
     public void transform(JCMethodDecl base) {
         final String name = base.name.toString();
-        System.out.println(name);
         ctor = name.equals("<init>");
         getMethods(base).forEach(method ->
                 clazz.defs = clazz.defs.append(method)
@@ -111,8 +110,8 @@ public class OptionalTransformer extends Transformer<JCMethodDecl> {
                     if (!(rhs instanceof JCNewArray)) {
                         return rhs;
                     }
-                 } else if (attributes.size() > 1) {
-                    throw new TooManyAttributesException("@Optional annotation should not have more than one attribute.");
+                } else if (attributes.size() > 1) {
+                    throw new TooManyAttributesException();
                 }
             }
         }

@@ -10,4 +10,8 @@ public class TooManyAttributesException extends RuntimeException {
     public TooManyAttributesException(String msg) {
         super(msg);
     }
+
+    public TooManyAttributesException() {
+        this("@Optional annotation should not have more than one attribute.");
+    }
 }
