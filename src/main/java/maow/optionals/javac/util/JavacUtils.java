@@ -10,6 +10,7 @@ import com.sun.tools.javac.util.Names;
 import maow.optionals.processing.JavacProcessor;
 
 import static com.sun.tools.javac.tree.JCTree.*;
+import static maow.optionals.util.Annotations.ALL_OPTIONAL_ANNOTATION;
 import static maow.optionals.util.Annotations.OPTIONAL_ANNOTATION;
 
 /**
@@ -55,8 +56,21 @@ public final class JavacUtils {
                 );
     }
 
+    public static boolean isAnnotated(JCMethodDecl method, String annotationFqName) {
+        return method.mods.annotations
+                .stream()
+                .anyMatch(annotation -> symbolEquals(
+                        annotation.type.tsym,
+                        annotationFqName)
+                );
+    }
+
     public static boolean isOptional(JCVariableDecl var) {
         return isAnnotated(var, OPTIONAL_ANNOTATION);
+    }
+
+    public static boolean isAllOptional(JCMethodDecl method) {
+        return isAnnotated(method, ALL_OPTIONAL_ANNOTATION);
     }
 
     public Name name(String name) {

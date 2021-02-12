@@ -39,7 +39,7 @@ public final class OptionalProcessor extends JavacProcessor {
     }
 
     private void checkAndHandle(Element clazz) {
-        final String name = getBinaryName(clazz);
+        final String name = getBinaryName(clazz).intern();
         if (!processed.contains(name)) {
             handle(clazz);
             processed.add(name);

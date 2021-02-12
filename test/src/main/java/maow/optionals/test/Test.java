@@ -1,5 +1,6 @@
 package maow.optionals.test;
 
+import maow.optionals.annotations.AllOptional;
 import maow.optionals.annotations.Optional;
 
 public final class Test {
@@ -7,14 +8,14 @@ public final class Test {
     public final String s2;
     public final String s3;
 
-    public Test(String s, @Optional String s2, @Optional String s3) {
+    public Test(String s, String s2, String s3) {
         this.s = s;
         this.s2 = s2;
         this.s3 = s3;
     }
 
     public static void main(String[] args) {
-        final Test test = new Test("Meme School");
+        final Test test = new Test("Meme", "School", "is Cool");
 
         System.out.println(test.s);
         System.out.println(test.s2);
@@ -22,6 +23,7 @@ public final class Test {
 
         test.methodTest("loohcS emeM");
         staticTest("Static School");
+
         test.oneTest();
     }
 
@@ -55,4 +57,7 @@ public final class Test {
     public void charTest(@Optional char c) {
         System.out.println(c);
     }
+
+    @AllOptional
+    public void allOptionalTest(String s, String s2) {}
 }

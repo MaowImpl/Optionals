@@ -11,4 +11,8 @@ public interface Annotations {
      * Qualified name for the {@link maow.optionals.annotations.Optional} annotation.
      */
     String OPTIONAL_ANNOTATION = "maow.optionals.annotations.Optional";
+    /**
+     * Qualified name for the {@link maow.optionals.annotations.AllOptional} annotation.
+     */
+    String ALL_OPTIONAL_ANNOTATION = "maow.optionals.annotations.AllOptional";
 }
