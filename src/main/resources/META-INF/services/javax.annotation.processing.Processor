@@ -1,2 +1,2 @@
-maow.optionals.processing.OptionalProcessor
-maow.optionals.processing.AllOptionalProcessor
+maow.optionals.processor.OptionalProcessor
+maow.optionals.processor.AllOptionalProcessor

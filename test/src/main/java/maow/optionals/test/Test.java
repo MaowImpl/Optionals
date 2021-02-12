@@ -4,22 +4,8 @@ import maow.optionals.annotations.AllOptional;
 import maow.optionals.annotations.Optional;
 
 public final class Test {
-    public final String s;
-    public final String s2;
-    public final String s3;
-
-    public Test(String s, String s2, String s3) {
-        this.s = s;
-        this.s2 = s2;
-        this.s3 = s3;
-    }
-
     public static void main(String[] args) {
-        final Test test = new Test("Meme", "School", "is Cool");
-
-        System.out.println(test.s);
-        System.out.println(test.s2);
-        System.out.println(test.s3);
+        final Test test = new Test();
 
         test.methodTest("loohcS emeM");
         staticTest("Static School");
