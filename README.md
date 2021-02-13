@@ -38,7 +38,7 @@ My string.
 
 ## IDE Plugins
 
-* [IntelliJ IDEA](https://github.com/MaowImpl/optionals-intellij-plugin)
+* [IntelliJ Platform](https://github.com/MaowImpl/optionals-intellij-plugin)
 
 ## Installation (Gradle)
 
