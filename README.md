@@ -86,5 +86,5 @@ My string.
 
 ## Notes
 
-1. This project currently has no IDE support, meaning your text editor will give you errors, sadly.
+1. This project currently has limited IDE support, some features may not work and it may not be available for every platform.
 2. I'm not sure about the compatibility of this and Lombok, as they're both similar systems that do a lot of modifications, proceed with your own caution.
