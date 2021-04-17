@@ -1,3 +1,8 @@
+**ARCHIVED: THIS PROJECT HAS NOW BEEN SUPERSEDED BY THE FOLLOWING PROJECT:**
+
+https://github.com/project-transparent/glaze
+
+
 ![Optionals - Optional Parameters on the Java Platform](https://i.imgur.com/fz8ZopG.png)
 <br>
 ![License](https://img.shields.io/github/license/maowimpl/optionals?style=flat-square)
